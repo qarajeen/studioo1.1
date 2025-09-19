@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -10,7 +9,7 @@ import Image from 'next/image';
 import ExifReader from 'exif-reader';
 import { Skeleton } from '../ui/skeleton';
 import { ScrollArea } from '../ui/scroll-area';
-import { Buffer } from 'buffer'; // Good practice to import Buffer explicitly
+import { Buffer } from 'buffer';
 
 // Helper to format tag values
 const formatValue = (key: string, value: any): string => {
@@ -121,7 +120,7 @@ export function ExifDataViewer() {
     setError(null);
     setExifData(null);
     if (fileRejections.length > 0) {
-      setError("Please upload a valid image file (JPEG, PNG, GIF) under 10MB.");
+      setError("Please upload a valid image file (JPEG, TIFF, PNG) under 10MB.");
       setFile(null);
       setImagePreview(null);
       return;
@@ -149,17 +148,17 @@ export function ExifDataViewer() {
         const arrayBuffer = e.target?.result;
          if (arrayBuffer instanceof ArrayBuffer) {
              try {
-              const buffer = Buffer.from(arrayBuffer); // Convert to a Buffer
-               const tags = ExifReader(buffer);          // Pass the correct type
-                const allTags = { ...tags['Image'], ...tags['Exif'], ...tags['GPS'], ...tags['Interoperability'] };
-                // Check if any tags were actually found
+                const buffer = Buffer.from(arrayBuffer);
+                const tags = ExifReader(buffer);
+                // CORRECTED: Use lowercase keys to access the EXIF data categories
+                const allTags = { ...tags['image'], ...tags['exif'], ...tags['gps'], ...tags['interoperability'] };
+                
                 if(Object.keys(allTags).length > 0) {
                     setExifData(allTags);
                 } else {
                     setExifData({}); // Set to empty object to signify no data found
                 }
             } catch (err) {
-                // This catch block will now mostly handle truly corrupt files
                 console.warn("EXIF parsing failed:", err);
                 setExifData({});
             }
