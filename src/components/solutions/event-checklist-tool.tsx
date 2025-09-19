@@ -150,7 +150,7 @@ export function EventChecklistTool() {
                 0: { fontStyle: 'bold', cellWidth: 50 },
                 1: { cellWidth: 'auto' },
             },
-            didDrawCell: (data) => {
+            didDrawCell: (data: CellHookData) => {
                 if (data.section === 'body' && data.column.index === 0) {
                      // We can't draw interactive checkboxes, so the text placeholder is the best we can do.
                 }
