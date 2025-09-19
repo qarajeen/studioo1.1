@@ -148,7 +148,7 @@ export function ExifDataViewer() {
         const arrayBuffer = e.target?.result;
          if (arrayBuffer instanceof ArrayBuffer) {
              try {
-                const tags = ExifReader.load(arrayBuffer);
+               const tags = ExifReader(arrayBuffer); // Correct usage
                 const allTags = { ...tags['Image'], ...tags['Exif'], ...tags['GPS'], ...tags['Interoperability'] };
                 // Check if any tags were actually found
                 if(Object.keys(allTags).length > 0) {
