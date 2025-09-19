@@ -10,6 +10,7 @@ import Image from 'next/image';
 import ExifReader from 'exif-reader';
 import { Skeleton } from '../ui/skeleton';
 import { ScrollArea } from '../ui/scroll-area';
+import { Buffer } from 'buffer'; // Good practice to import Buffer explicitly
 
 // Helper to format tag values
 const formatValue = (key: string, value: any): string => {
@@ -148,7 +149,8 @@ export function ExifDataViewer() {
         const arrayBuffer = e.target?.result;
          if (arrayBuffer instanceof ArrayBuffer) {
              try {
-               const tags = ExifReader(arrayBuffer); // Correct usage
+              const buffer = Buffer.from(arrayBuffer); // Convert to a Buffer
+               const tags = ExifReader(buffer);          // Pass the correct type
                 const allTags = { ...tags['Image'], ...tags['Exif'], ...tags['GPS'], ...tags['Interoperability'] };
                 // Check if any tags were actually found
                 if(Object.keys(allTags).length > 0) {
