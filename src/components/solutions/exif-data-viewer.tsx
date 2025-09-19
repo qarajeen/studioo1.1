@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { UploadCloud, Camera, CircleAlert, Aperture, LucideRefreshCw, Shutter, ZoomIn } from 'lucide-react';
+import { UploadCloud, Camera, CircleAlert, Aperture, LucideRefreshCw, ZoomIn } from 'lucide-react';
 import Image from 'next/image';
 import ExifReader from 'exif-reader';
 import { Skeleton } from '../ui/skeleton';
